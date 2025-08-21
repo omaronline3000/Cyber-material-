@@ -117,7 +117,9 @@
 - apt list —upgradeable → packages which need upgrade
 - apt list —installed → packages which installed by apt
 - look this image ❤️
+ 
 ![[image.png]]
+
 - use (ps aux —forest or pstree or pstree -p (more detailed than pstree)) → to display all sub processes
 
 ![[image2.png]]

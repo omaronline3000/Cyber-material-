@@ -8,10 +8,15 @@
     - Hierarchical file system
     - shell and command line
     - POSIX complaint
+	    - follows a standardized set of rules so scripts/programs work the same on any compliant Unix-like system.
+		    - **Portability:** You can write a shell script on Linux and run it on macOS or BSD without major changes, if you stick to POSIX standards.
+			- **Compatibility:** Even if you switch shells (`sh`, `bash`, `dash`, `ksh`), scripts still run correctly.
+			- **Reliability:** POSIX compliance ensures scripts and programs behave consistently across environments.
     - modular structure
+	    - In Unix, **modular structure** means the system is made of **small, focused programs and components** that can be combined in flexible ways, rather than one monolithic program doing everything. Bash (or other shells) leverages this modularity by **orchestrating these small programs**.
     
     the OSs may be certified like “macOS” or not like “Linux , android , …..”
-    
+
 - GNU stands for “Not Unix” it was project directed by Richard Stallman (1983), to be free open-source operating systems , and it nearly like that (it provide multiple tools like shell , compilers , debuggers , libraries ,.. and so on) but without the Kernel due to the project does not completed(the kernel was supposed to call Hurd) , So when Linus completed Linux kernel , developers combine between the Linux and GNU tools , to build Linux distros (when we say Linux now we mean GNU/Linux)
     - the Kernel is the Middleman between the hardware and user-level programs , it talk with the hardware and manage system resources like (memory, processes, I/O)
 
@@ -20,16 +25,15 @@
 # Important Notes:-
 
 - “symbolic” or soft link in “ln” tool , make the new file indicate to the original file not the data so if you deleted the original one the copy also will be inaccessible
-- which → return to you the path of the tool
-- wc → return data about the content of file
-- The STDIN just work with programs , but it does not work with shell built-in commands like “cd” , but it can work with the built-in if it accepts characters
+- `wc` → return data about the content of file
+- The STDIN just work with programs , but it does not work with shell built-in commands like “cd" , but it can work with the built-in if it accepts characters
 - If i passed a file using STDIN with a command expects a file as input , it will take the file itself.
 - STDIN can pass the characters but not special ones like (arguments , Meta Data , Paths , variables) , you can use it as input for scripts
 - a lot of built- in commands read from environment variables to provide you the info like {pwd , hostname ,…}
-- su & sudo
-    - su (substitute user) used to change the user to another one , asking for the password of the account that you want access (by default it change to root)
+- `su & sudo`
+    - `su (substitute user)` used to change the user to another one , asking for the password of the account that you want access (by default it change to root)
     - it’s best practice to access on another user by adding dash after the command like this “su - $userName” , it is load the environment variables of the new user , and put you in the home path of the new user , the previous command will change the user but will keep the environments variables for the last user and you will still in the home of the last user which will make you unauthorized to do or edit any thing (you can overcome this by using “sudo” with every command) , so you should use “su - $userName”
-    - sudo (Superuer do) it gives you permissions of another user (root by default) to do a command  , but your user name should be in “/etc/sudoers” file which contain the users who can use sudo , and because you are authenticated in the sudoers file , it will just ask you for your current password not the password of the user which you try to access its permissions
+    - `sudo (Superuer do)` it gives you permissions of another user (root by default) to do a command  , but your user name should be in “/etc/sudoers” file which contain the users who can use sudo , and because you are authenticated in the sudoers file , it will just ask you for your current password not the password of the user which you try to access its permissions
     - in the new Debian versions like (ubuntu , kali ,….) , root account looked out by default so it does not has a password and you can not access it directly , you can use this command “sudo su” , which let you as “sudo”  have root permissions without be root , but it just give you the shell it will not load (Environment variables) or put you on home directory , so you can use “sudo -i” and it do all the mentioned above and it better than write “sudo su -”
     - “su username -c “command” ”  it let you perform a command as another user but without switching to him
     - `echo “password” | sudo -S <rest of command>` → this command pass the password to sudo without asking you “-S” let you pass the password as input file or string rather than standard input device
@@ -56,14 +60,25 @@
     - gdm3 → GNOME
     - lightdm → for multiple ones like Xfce , KDE , MATE,….
 - “package is held-back” mean it will not be upgrading when you run “sudo apt upgrade” , because upgrade command is very conversative it does not install any dependencies it just upgrade the tool and if any tool which has upgrade but also it’s need another dependencies the system will hold it back , or you can hold any package or tool you want by `sudo apt-mark hold <name>`, and to can upgrade every thing even the held-back packages you need to use stronger command like “sudo apt full-upgrade” it’s similar to `sudo apt install distro-upgrade`
+- normally the scripts that written in the files, executed in subshell not the current one, so if you wanna it to run in the current shell, do this
+	- before run it use `source` 
+		- example : `source file.sh`
+		- important if you write something will affect on your current session, not just a task to do something not depend on the session
+	- or use `.` same effect but it compatible with `sh` shells
+	- or make your script auto-sourcing // `chat-gpt chat` 
+	- or use a function instead of files, which will run in the current shell 
+- the compilers and interpreters has a `-c` flag which make you run a command with in another environment
+- `Quotes`
+	- double quotes -> weak quoting => allow variable expansion , command substitution, ....
+	- single quotes -> strong quoting => does not allow anything stringify anything 
+	- backticks -> command substitution , older than `$()` 
+- 
+---  
 
----
-
-
-- * the options which you pass with the commands called switch or argument
-- * autoremove command delete the package and its dependencies
+- the options which you pass with the commands called switch or argument
+-  autoremove command delete the package and its dependencies
 - `locate <filename>` → to search in the whole OS about specific file
-- * recursively → meaning doing the act again and again on the sub-items in the item.
+-  recursively → meaning doing the act again and again on the sub-items in the item.
 - curl → tool to send requests with manipulating with various of protocols , does not support download recursively
     - examples
         - `curl https://Google.com`  // get request , display the indx.html in the terminal
@@ -117,7 +132,7 @@
 - apt list —upgradeable → packages which need upgrade
 - apt list —installed → packages which installed by apt
 - look this image ❤️
- 
+
 ![[image.png]]
 
 - use (ps aux —forest or pstree or pstree -p (more detailed than pstree)) → to display all sub processes
@@ -137,7 +152,7 @@
     - `dhclient <particular NIC> -v` → to see the process
     - valuable if the internet connection stopped suddenly and you want to reconnect , or you want change you IP address , or you want connect internet and there is no automatic configuration to connect you, and more….
 - built-in linux firewall is iptables
-- $(command) → this notation run the command in a subshell and return the output as input in the position that used in
+- `$(command)` → this notation run the command in a subshell and return the output as input in the position that used in
 - uptime → the operating period
 - kill -9 PID → to kill
 - `chown user:group file` → to change the owner
@@ -147,4 +162,12 @@
     - xfce4-terminal -c “bash -c ‘exec bash’ ” → for opening a window and you can exit it normally
     - xfce4-terminal  —hold -c “whoami” → for opening the window and run the command and hold it
         - withoud hold it will auto close after the command ran
+- `echo $0` -> print to you the current shell type
+- `which` -> to output the executable file path of the tool 
+- `type` -> to output how the shell interprets the command (alias, file, fucntion, ...etc) and its path of it also
+- `seq 'start num' 'end num' ` -> generate numbers 
+- `command ... | tee file1.txt file2.txt > /dev/null`
+	- print the output in the both files and the screen output will avoided
+- 
 ---
+- 

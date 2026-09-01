@@ -9,4 +9,3 @@
 	* it mainly use command line, but it supports some GUI
 	* it's reboot every 72 hour
 
-

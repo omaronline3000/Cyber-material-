@@ -9,6 +9,8 @@ Cryptography → is a science for hide info by change its format from plain.txt 
     - most web sites use rainbow tables (you)
     - its range from 128bit to 512bit
     - sha1sum or sha256sum or ….. → used for hashing files
+    - Salt -> adding a additional string to the plain text before hashing it to protect against Rainbow tables
+    - used also for verifying from any adjustment in the files , you calculate the hash of the original file from the official website and the file that your friend sent to you, then compare between them
 ---
 # Encoding
 
@@ -19,6 +21,18 @@ Cryptography → is a science for hide info by change its format from plain.txt 
     - it is not one way you can , you can decode it
     - converting between number systems and ascii code considered encoding
     - ex:
+	    - URL encoding
+		    - we encode the data into URL format to let the browser and web server understand the request
+		    - and many characters encoded into another format to let HTTP manipulate with it like 
+			    - & -> %26
+			    -    -> +  OR %20
+			    - + -> %2B
+		- Base64x
+		- HTML encoding
+			- and character will changed to this scheme -> & word ;
+			- < → &lt;
+			- > → &gt;
+			- = → &equal;
         - endian representation
             - big endian → the sequence hex representation of its characters.
             - little endian → reveres of the sequence hex representation of its characters.
@@ -36,4 +50,3 @@ Cryptography → is a science for hide info by change its format from plain.txt 
                 - `-t <type>` → type of encryption like rsa
                 - here you send the your public key to the server, authentication process (the server creates a symmetric key and encrypt it with your public key, then it resend it to you, so if you the guy who sand the request you can decrypt the symmetric key with private key which you have)
         - Examples: RSA , DSA , DH , ECDH
-- it’s common for base64 encoding to end with ==

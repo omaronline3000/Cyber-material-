@@ -11,7 +11,6 @@
 
 # Learn Categories :-
 
-
 ## DFIR
 
 👉 Focus: log analysis, PCAP analysis, disk images, memory dumps. 
